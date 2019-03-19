@@ -9,12 +9,12 @@ namespace candy_market
         public string FlavorCategory { get; }
         public DateTime DateRecieved { get; }
 
-      /*  public Candy(string name, string manufacturer, string falvorCategory)
+        public Candy(string name, string manufacturer, string falvorCategory)
         {
             Name = name;
             Manufacturer = manufacturer;
             FlavorCategory = FlavorCategory;
             DateRecieved = DateTime.Now;
-        } */
+        }
     }
 }
