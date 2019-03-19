@@ -4,16 +4,16 @@ namespace candy_market
 {
     internal class Candy
     {
-        public string Name { get; set; }
+        public string Name { get; }
         public string Manufacturer { get; }
         public string FlavorCategory { get; }
         public DateTime DateRecieved { get; }
 
-        public Candy(string name, string manufacturer, string falvorCategory)
+        public Candy(string name, string manufacturer, string flavorCategory)
         {
             Name = name;
             Manufacturer = manufacturer;
-            FlavorCategory = FlavorCategory;
+            FlavorCategory = flavorCategory;
             DateRecieved = DateTime.Now;
         }
     }
