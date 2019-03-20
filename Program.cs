@@ -19,8 +19,8 @@ namespace candy_market
 		internal static CandyStorage SetupNewApp()
 		{
 			Console.Title = "Cross Confectioneries Incorporated";
-			Console.BackgroundColor = ConsoleColor.White;
-			Console.ForegroundColor = ConsoleColor.Black;
+			Console.BackgroundColor = ConsoleColor.DarkMagenta;
+			Console.ForegroundColor = ConsoleColor.Cyan;
 
 			var db = new CandyStorage();
 
@@ -49,36 +49,46 @@ namespace candy_market
 			switch (selection)
 			{
 				case "1": AddNewCandy(db);
-					break;
-				case "2": EatCandy(db);
+                    break;
+                case "2": EatCandy(db);
 					break;
 				default: return true;
 			}
 			return true;
 		}
 
-		public static void AddNewCandy(CandyStorage db)
+		internal static void AddNewCandy(CandyStorage db)
 		{
-<<<<<<< HEAD
-/*			var newCandy = new Candy
-			{
-				Name = "Whatchamacallit"
-			};
-=======
-            var newCandy = new Candy("jelly bean", "jelly Inc", "Cherry");
-			//{
-   //             Name = "Whatchamacallit";
-			//};
->>>>>>> master
+            Console.WriteLine("What is the name of your candy?");
+            string Name = Console.ReadLine().ToLower();
 
-			var savedCandy = db.SaveNewCandy(newCandy);
-			Console.WriteLine($"Now you own the candy {savedCandy.Name}");
-*/		}
+            Console.WriteLine("Who is the manufacturer of your candy?");
+            string Manufacturer = Console.ReadLine().ToLower();
+
+            Console.WriteLine("What is the flavor of your candy?");
+            string FlavorCategory = Console.ReadLine().ToLower();
+
+            Console.WriteLine("When did you buy this candy? [EX] 2010, 12, 23");
+            Console.WriteLine("Enter Year");
+            int Year = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Month");
+            var Month = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Day");
+            int Day = Convert.ToInt32(Console.ReadLine());
+
+            var DateReceived = new DateTime(Year, Month, Day);
+
+            var newCandy = new Candy(Name, Manufacturer, FlavorCategory, DateReceived);
+			{
+                Console.WriteLine($"Now you own the candy {newCandy.Name}");
+            };
+            Console.ReadKey();
+
+        }
 
 		private static void EatCandy(CandyStorage db)
 		{
-            
-            db.EatChosenCandy(db.GetCandyTypes()[0]);
+			throw new NotImplementedException();
 		}
 	}
 }
