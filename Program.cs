@@ -57,12 +57,12 @@ namespace candy_market
 			return true;
 		}
 
-		internal static void AddNewCandy(CandyStorage db)
+		public static void AddNewCandy(CandyStorage db)
 		{
-			var newCandy = new Candy
-			{
-				Name = "Whatchamacallit"
-			};
+            var newCandy = new Candy("jelly bean", "jelly Inc", "Cherry");
+			//{
+   //             Name = "Whatchamacallit";
+			//};
 
 			var savedCandy = db.SaveNewCandy(newCandy);
 			Console.WriteLine($"Now you own the candy {savedCandy.Name}");
