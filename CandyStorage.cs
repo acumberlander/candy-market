@@ -24,7 +24,7 @@ namespace candy_market
 
             var name = _myCandy[0].Name;
             var mfc = _myCandy[0].Manufacturer;
-            var flavor = _myCandy[0].FlavorCategory;
+            var flavor = _myCandy[0].FlavorType;
 
             Console.WriteLine($"Name: {name} Manufacturer: {mfc} Flavor: {flavor}");
             Console.ReadLine();

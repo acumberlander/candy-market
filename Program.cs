@@ -59,7 +59,7 @@ namespace candy_market
 
 		public static void AddNewCandy(CandyStorage db)
 		{
-            var newCandy = new Candy("jelly bean", "jelly Inc", "Cherry");
+            var newCandy = new Candy("jelly bean", "jelly Inc", Flavor.sour);
 			//{
    //             Name = "Whatchamacallit";
 			//};
