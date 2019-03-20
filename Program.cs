@@ -19,8 +19,8 @@ namespace candy_market
 		internal static CandyStorage SetupNewApp()
 		{
 			Console.Title = "Cross Confectioneries Incorporated";
-			Console.BackgroundColor = ConsoleColor.White;
-			Console.ForegroundColor = ConsoleColor.Black;
+			Console.BackgroundColor = ConsoleColor.DarkMagenta;
+			Console.ForegroundColor = ConsoleColor.Cyan;
 
 			var db = new CandyStorage();
 
@@ -49,8 +49,20 @@ namespace candy_market
 			switch (selection)
 			{
 				case "1": AddNewCandy(db);
-					break;
-				case "2": EatCandy(db);
+                    Console.WriteLine("What is the name of your candy?");
+                    string Name = Console.ReadLine().ToLower();
+
+                    Console.WriteLine("Who is the manufacturer of your candy?");
+                    string Manufacturer = Console.ReadLine().ToLower();
+
+                    Console.WriteLine("What is the flavor of your candy?");
+                    string FlavorCategory = Console.ReadLine().ToLower();
+
+                    Console.WriteLine("When did you purchase this candy? [ex] 01/01/19");
+                    int DateRecieved = Convert.ToInt32(Console.ReadLine());
+
+                    break;
+                case "2": EatCandy(db);
 					break;
 				default: return true;
 			}
@@ -59,13 +71,13 @@ namespace candy_market
 
 		internal static void AddNewCandy(CandyStorage db)
 		{
-			var newCandy = new Candy
+			//var newCandy = new Candy
 			{
-				Name = "Whatchamacallit"
+			//	Name = "Whatchamacallit"
 			};
 
-			var savedCandy = db.SaveNewCandy(newCandy);
-			Console.WriteLine($"Now you own the candy {savedCandy.Name}");
+			//var savedCandy = db.SaveNewCandy(newCandy);
+			//Console.WriteLine($"Now you own the candy {savedCandy.Name}");
 		}
 
 		private static void EatCandy(CandyStorage db)
