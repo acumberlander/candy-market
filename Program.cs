@@ -59,18 +59,26 @@ namespace candy_market
 
 		public static void AddNewCandy(CandyStorage db)
 		{
+<<<<<<< HEAD
+/*			var newCandy = new Candy
+			{
+				Name = "Whatchamacallit"
+			};
+=======
             var newCandy = new Candy("jelly bean", "jelly Inc", "Cherry");
 			//{
    //             Name = "Whatchamacallit";
 			//};
+>>>>>>> master
 
 			var savedCandy = db.SaveNewCandy(newCandy);
 			Console.WriteLine($"Now you own the candy {savedCandy.Name}");
-		}
+*/		}
 
 		private static void EatCandy(CandyStorage db)
 		{
-			throw new NotImplementedException();
+            
+            db.EatChosenCandy(db.GetCandyTypes()[0]);
 		}
 	}
 }
