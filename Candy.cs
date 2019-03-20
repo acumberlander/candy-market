@@ -6,15 +6,20 @@ namespace candy_market
     {
         public string Name { get; }
         public string Manufacturer { get; }
-        public string FlavorCategory { get; }
+        public Flavor FlavorType { get; }
         public DateTime DateRecieved { get; }
 
-        public Candy(string name, string manufacturer, string flavorCategory)
+        public Candy(string name, string manufacturer,  Flavor flavor)
         {
             Name = name;
             Manufacturer = manufacturer;
-            FlavorCategory = flavorCategory;
+            FlavorType = flavor;
             DateRecieved = DateTime.Now;
         }
+    }
+    enum Flavor
+    {
+        sour,
+        sweet
     }
 }
