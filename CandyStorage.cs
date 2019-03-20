@@ -7,15 +7,28 @@ namespace candy_market
     internal class CandyStorage
     {
         static List<Candy> _myCandy = new List<Candy>();
+        static List<Candy> _eatenCandy = new List<Candy>();
 
         internal IList<string> GetCandyTypes()
         {
+            _myCandy.Add(new Candy("chicken", "bucket", "Sour"));
+            _myCandy.Add(new Candy("man", "pail", "Sour"));
+            _myCandy.Add(new Candy("chicken", "box", "meth"));
+
+            return _myCandy.Select(x=> x.Name).ToList();
             throw new NotImplementedException();
         }
 
         internal Candy SaveNewCandy(Candy newCandy)
         {
             throw new NotImplementedException();
+        }
+
+        internal void EatChosenCandy(string candyToEat)
+        {
+            var eatenCandy = _myCandy.Find(x => (x.Name == candyToEat)&&(x.DateRecieved == _myCandy.Min(y => y.DateRecieved)));
+            _myCandy.Remove(eatenCandy);
+            _eatenCandy.Add(eatenCandy);
         }
     }
 }
