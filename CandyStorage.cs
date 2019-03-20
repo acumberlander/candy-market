@@ -21,7 +21,20 @@ namespace candy_market
 
         internal Candy SaveNewCandy(Candy newCandy)
         {
+
+            _myCandy.Add(newCandy);
+            if (newCandy == null)
+            {
             throw new NotImplementedException();
+            }
+
+            var name = _myCandy[0].Name;
+            var mfc = _myCandy[0].Manufacturer;
+            var flavor = _myCandy[0].FlavorCategory;
+
+            Console.WriteLine($"Name: {name} Manufacturer: {mfc} Flavor: {flavor}");
+            Console.ReadLine();
+            return newCandy;
         }
 
         internal void EatChosenCandy(string candyToEat)
