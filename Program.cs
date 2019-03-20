@@ -62,7 +62,7 @@ namespace candy_market
                     Console.WriteLine("Enter Year");
                     int Year = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Enter Month");
-                    int Month = Convert.ToInt32(Console.ReadLine());
+                    var Month = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Enter Day");
                     int Day = Convert.ToInt32(Console.ReadLine());
 
