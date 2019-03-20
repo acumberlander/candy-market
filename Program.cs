@@ -58,8 +58,15 @@ namespace candy_market
                     Console.WriteLine("What is the flavor of your candy?");
                     string FlavorCategory = Console.ReadLine().ToLower();
 
-                    Console.WriteLine("When did you purchase this candy? [ex] 01/01/19");
-                    int DateRecieved = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("When did you buy this candy? [EX] 2010, 12, 23");
+                    Console.WriteLine("Enter Year");
+                    int Year = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Enter Month");
+                    int Month = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Enter Day");
+                    int Day = Convert.ToInt32(Console.ReadLine());
+
+                    var DateReceived = new DateTime(Year, Month, Day);
 
                     break;
                 case "2": EatCandy(db);
