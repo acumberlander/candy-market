@@ -49,25 +49,6 @@ namespace candy_market
 			switch (selection)
 			{
 				case "1": AddNewCandy(db);
-                    Console.WriteLine("What is the name of your candy?");
-                    string Name = Console.ReadLine().ToLower();
-
-                    Console.WriteLine("Who is the manufacturer of your candy?");
-                    string Manufacturer = Console.ReadLine().ToLower();
-
-                    Console.WriteLine("What is the flavor of your candy?");
-                    string FlavorCategory = Console.ReadLine().ToLower();
-
-                    Console.WriteLine("When did you buy this candy? [EX] 2010, 12, 23");
-                    Console.WriteLine("Enter Year");
-                    int Year = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Enter Month");
-                    var Month = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Enter Day");
-                    int Day = Convert.ToInt32(Console.ReadLine());
-
-                    var DateReceived = new DateTime(Year, Month, Day);
-
                     break;
                 case "2": EatCandy(db);
 					break;
@@ -78,14 +59,32 @@ namespace candy_market
 
 		internal static void AddNewCandy(CandyStorage db)
 		{
-			//var newCandy = new Candy
-			{
-			//	Name = "Whatchamacallit"
-			};
+            Console.WriteLine("What is the name of your candy?");
+            string Name = Console.ReadLine().ToLower();
 
-			//var savedCandy = db.SaveNewCandy(newCandy);
-			//Console.WriteLine($"Now you own the candy {savedCandy.Name}");
-		}
+            Console.WriteLine("Who is the manufacturer of your candy?");
+            string Manufacturer = Console.ReadLine().ToLower();
+
+            Console.WriteLine("What is the flavor of your candy?");
+            string FlavorCategory = Console.ReadLine().ToLower();
+
+            Console.WriteLine("When did you buy this candy? [EX] 2010, 12, 23");
+            Console.WriteLine("Enter Year");
+            int Year = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Month");
+            var Month = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Day");
+            int Day = Convert.ToInt32(Console.ReadLine());
+
+            var DateReceived = new DateTime(Year, Month, Day);
+
+            var newCandy = new Candy(Name, Manufacturer, FlavorCategory, DateReceived);
+			{
+                Console.WriteLine($"Now you own the candy {newCandy.Name}");
+            };
+            Console.ReadKey();
+
+        }
 
 		private static void EatCandy(CandyStorage db)
 		{
