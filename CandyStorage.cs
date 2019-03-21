@@ -38,8 +38,8 @@ namespace candy_market
             var candiesSelected = _myCandy
                 .FindAll(matchedCandy => (matchedCandy.Name == candyToEat));
             var oldestCandyToEat = GetOldestCandy(candiesSelected);
-            _myCandy.Remove(oldestCandyToEat);
-            _eatenCandy.Add(oldestCandyToEat);
+            RemoveCandyFromInventory(oldestCandyToEat);
+            AddCandyToEatenList(oldestCandyToEat);
         }
 
         internal Candy GetOldestCandy(List<Candy> selectedCandies)
@@ -50,6 +50,16 @@ namespace candy_market
         internal DateTime OldestCandy(List<Candy> selectedCandies)
         {
             return selectedCandies.Min(candy => candy.DateRecieved);
+        }
+
+        internal void RemoveCandyFromInventory(Candy candyToRemove)
+        {
+            _myCandy.Remove(candyToRemove);
+        }
+
+        internal void AddCandyToEatenList(Candy candyToEat)
+        {
+            _eatenCandy.Add(candyToEat);
         }
     }
 }

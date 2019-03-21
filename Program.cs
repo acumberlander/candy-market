@@ -78,9 +78,8 @@ namespace candy_market
             var DateReceived = new DateTime(Year, Month, Day);
 
             var newCandy = new Candy(Name, Manufacturer, FlavorCategory, DateReceived);
-			{
-                Console.WriteLine($"Now you own the candy {newCandy.Name}");
-            };
+            db.SaveNewCandy(newCandy);
+            Console.WriteLine($"Now you own the candy {newCandy.Name}");
             Console.ReadKey();
 
         }
