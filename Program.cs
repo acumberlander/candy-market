@@ -49,12 +49,11 @@ namespace candy_market
 			switch (selection)
 			{
 				case "1": AddNewCandy(db);
-                    break;
+                    return false;
                 case "2": EatCandy(db);
-					break;
-				default: return true;
+                    return false;
+				default: return false;
 			}
-			return true;
 		}
 
 		internal static void AddNewCandy(CandyStorage db)

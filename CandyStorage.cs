@@ -11,10 +11,6 @@ namespace candy_market
 
         internal IList<string> GetCandyTypes()
         {
-            _myCandy.Add(new Candy("chicken", "bucket", "Sour"));
-            _myCandy.Add(new Candy("man", "pail", "Sour"));
-            _myCandy.Add(new Candy("chicken", "box", "meth"));
-
             return _myCandy.Select(x=> x.Name).ToList();
             throw new NotImplementedException();
         }
@@ -39,9 +35,21 @@ namespace candy_market
 
         internal void EatChosenCandy(string candyToEat)
         {
-            var eatenCandy = _myCandy.Find(x => (x.Name == candyToEat)&&(x.DateRecieved == _myCandy.Min(y => y.DateRecieved)));
-            _myCandy.Remove(eatenCandy);
-            _eatenCandy.Add(eatenCandy);
+            var candiesSelected = _myCandy
+                .FindAll(matchedCandy => (matchedCandy.Name == candyToEat));
+            var oldestCandyToEat = GetOldestCandy(candiesSelected);
+            _myCandy.Remove(oldestCandyToEat);
+            _eatenCandy.Add(oldestCandyToEat);
+        }
+
+        internal Candy GetOldestCandy(List<Candy> selectedCandies)
+        {
+            return selectedCandies.Find(x => x.DateRecieved == OldestCandy(selectedCandies));
+        }
+
+        internal DateTime OldestCandy(List<Candy> selectedCandies)
+        {
+            return selectedCandies.Min(candy => candy.DateRecieved);
         }
     }
 }
