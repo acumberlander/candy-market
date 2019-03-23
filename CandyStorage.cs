@@ -50,9 +50,31 @@ namespace candy_market
 
         internal void EatChosenCandy(string candyToEat)
         {
-            var eatenCandy = _myCandy.Find(x => (x.Name == candyToEat)&&(x.DateRecieved == _myCandy.Min(y => y.DateRecieved)));
-            _myCandy.Remove(eatenCandy);
-            _eatenCandy.Add(eatenCandy);
+            var candiesSelected = _myCandy
+                .FindAll(matchedCandy => (matchedCandy.Name == candyToEat));
+            var oldestCandyToEat = GetOldestCandy(candiesSelected);
+            RemoveCandyFromInventory(oldestCandyToEat);
+            AddCandyToEatenList(oldestCandyToEat);
+        }
+
+        internal Candy GetOldestCandy(List<Candy> selectedCandies)
+        {
+            return selectedCandies.Find(x => x.DateRecieved == OldestCandy(selectedCandies));
+        }
+
+        internal DateTime OldestCandy(List<Candy> selectedCandies)
+        {
+            return selectedCandies.Min(candy => candy.DateRecieved);
+        }
+
+        internal void RemoveCandyFromInventory(Candy candyToRemove)
+        {
+            _myCandy.Remove(candyToRemove);
+        }
+
+        internal void AddCandyToEatenList(Candy candyToEat)
+        {
+            _eatenCandy.Add(candyToEat);
         }
     }
 }
