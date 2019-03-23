@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace candy_market
 {
@@ -6,20 +7,15 @@ namespace candy_market
     {
         public string Name { get; }
         public string Manufacturer { get; }
-        public Flavor FlavorType { get; }
+        public string Flavor { get; set; }
         public DateTime DateRecieved { get; }
 
-        public Candy(string name, string manufacturer,  Flavor flavor)
+        public Candy(string name, string manufacturer,  string flavor, DateTime date)
         {
             Name = name;
             Manufacturer = manufacturer;
-            FlavorType = flavor;
-            DateRecieved = DateTime.Now;
+            Flavor = flavor;
+            DateRecieved = date;
         }
-    }
-    enum Flavor
-    {
-        sour,
-        sweet
     }
 }
