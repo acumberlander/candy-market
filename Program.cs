@@ -18,7 +18,6 @@ namespace candy_market
 
 		static void Main(string[] args)
 		{
-
             var FlavorList = new List<string>();
 
             FlavorList.Add("sour");
