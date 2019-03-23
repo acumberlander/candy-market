@@ -20,11 +20,11 @@ namespace candy_market
 		{
             List<Candy> candies = SeeCandy();
 
-            var x = candies.FindAll(candy => candy.Flavor == "sweet");
 
-            foreach(Candy candy in x)
+            List<Candy> filterCandy(string candyFlavor)
             {
-                Console.WriteLine(candy);
+                var x = candies.FindAll(candy => candy.Flavor == candyFlavor);
+                return x;
             }
 
             var db = SetupNewApp();
