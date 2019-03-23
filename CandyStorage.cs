@@ -32,18 +32,6 @@ namespace candy_market
             {
                 throw new NotImplementedException();
             }
-
-            var name = _myCandy[0].Name;
-            var mfc = _myCandy[0].Manufacturer;
-            var flavor = _myCandy[0].Flavor;
-
-            for (int i = 0; i < _myCandy.Count; i++)
-            {
-                var candyName = _myCandy[i].Name;
-                var candyMfc = _myCandy[i].Manufacturer;
-                var candyFlavor = _myCandy[i].Flavor;
-
-            }
             return newCandy;
         }
 
