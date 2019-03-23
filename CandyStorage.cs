@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace candy_market
 {
-    internal class CandyStorage
+    public class CandyStorage
     {
         static List<Candy> _myCandy = new List<Candy>();
         static List<Candy> _eatenCandy = new List<Candy>();
@@ -32,11 +32,6 @@ namespace candy_market
             {
                 throw new NotImplementedException();
             }
-
-            var name = _myCandy[0].Name;
-            var mfc = _myCandy[0].Manufacturer;
-            var flavor = _myCandy[0].FlavorCategory;
-
             return newCandy;
         }
 
@@ -77,7 +72,7 @@ namespace candy_market
 
         internal List<Candy> CandyFlavor(string flavor)
         {
-            var flavorCandy = _myCandy.FindAll(candy => (candy.FlavorCategory == flavor));
+            var flavorCandy = _myCandy.FindAll(candy => (candy.Flavor == flavor));
             return flavorCandy;
         }
     }

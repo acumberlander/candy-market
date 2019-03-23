@@ -1,14 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace candy_market
 {
-	class Program
-	{
+    class Program
+    {
+        public static List<Candy> SeeCandy()
+        {
+            List<Candy> candyList = new List<Candy>();
+            candyList.Add(new Candy("Jelly Bean", "Jelly Inc.", "bitter", new DateTime(2018 / 12 / 12)));
+            candyList.Add(new Candy("Snickers", "Mars Inc.", "sweet", new DateTime(2019 / 01 / 12)));
+            candyList.Add(new Candy("Reese's", "Mars Inc.", "sweet", new DateTime(2017 / 02 / 12)));
+            candyList.Add(new Candy("Lemon Heads", "Some Company Inc.", "sour", new DateTime(2019 / 01 / 01)));
+            return candyList;
+        }
+
 		static void Main(string[] args)
 		{
+            var FlavorList = new List<string>();
 
-            //var candyOwners = new List<CandyStorage>();
+            FlavorList.Add("sour");
+            FlavorList.Add("sweet");
+            FlavorList.Add("bitter");
+            FlavorList.Add("savory");
 
             var dylan = new CandyStorage("Dylan");
             dylan.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
@@ -37,15 +52,30 @@ namespace candy_market
             var db = SetupNewApp(Console.ReadLine());
             users.AddOwner(db);
 
-			var exit = false;
+            var exit = false;
 			while (!exit)
 			{
 				var userInput = MainMenu();
-				exit = TakeActions(db, userInput);
+				exit = TakeActions(db, userInput, FlavorList);
 			}
-		}
+        }
 
-		internal static CandyStorage SetupNewApp(string ownerName)
+        static List<Candy> filterCandy(string candyFlavor, CandyStorage db)
+        {
+            var candyList = db.ShowList();
+            var filteredCandyList = candyList.FindAll(candy => candy.Flavor == candyFlavor);
+            return filteredCandyList;
+        }
+
+        static void flavorLister(List<string> flavorList)
+        {
+            foreach(string flavor in flavorList)
+                {
+                    Console.WriteLine(flavor);
+                }
+        }
+
+    internal static CandyStorage SetupNewApp(string ownerName)
 		{
 			Console.Title = "Cross Confectioneries Incorporated";
 			Console.BackgroundColor = ConsoleColor.DarkMagenta;
@@ -61,6 +91,7 @@ namespace candy_market
 			View mainMenu = new View()
 					.AddMenuOption("Did you just get some new candy? Add it here.")
 					.AddMenuOption("Do you want to eat some candy? Take it here.")
+					.AddMenuOption("Choose candy by the flavor. Choose it here.")
                     .AddMenuOption("Would you like to trade some candy?")
 					.AddMenuText("Press Esc to exit.");
 			Console.Write(mainMenu.GetFullMenu());
@@ -68,7 +99,7 @@ namespace candy_market
 			return userOption;
 		}
 
-		private static bool TakeActions(CandyStorage db, ConsoleKeyInfo userInput)
+		private static bool TakeActions(CandyStorage db, ConsoleKeyInfo userInput, List<string> FlavorList)
 		{
 			Console.Write(Environment.NewLine);
 
@@ -78,25 +109,54 @@ namespace candy_market
 			var selection = userInput.KeyChar.ToString();
 			switch (selection)
 			{
-				case "1": AddNewCandy(db);
+				case "1": AddNewCandy(db, FlavorList);
                     return false;
+
                 case "2": EatCandy(db);
                     return false;
-                //case "3": TradeCandy(db);
-				default: return false;
+
+                case "3": EatRandomCandy(db, FlavorList);
+                    return false;
+
+                //case "3": EatRandomCandy(db, FlavorList);
+                //    return false;
+
+                default: return false;
 			}
 		}
 
-		internal static void AddNewCandy(CandyStorage db)
+        static void EatRandomCandy(CandyStorage db, List<string> FlavorList)
+        {
+            flavorLister(FlavorList);
+            var choosenFlavor = Console.ReadLine();
+            var filteredCandy = filterCandy(choosenFlavor, db);
+            if (filteredCandy.Count < 0)
+            {
+                throw new Exception("You don't have any candy of that type! Check yo list!");
+            }
+            var randNum = Rando(filteredCandy);
+
+            Console.WriteLine(filteredCandy[randNum].Name);
+            Console.ReadKey();
+        }
+
+		internal static void AddNewCandy(CandyStorage db, List<string> FlavorList)
 		{
+
+
             Console.WriteLine("What is the name of your candy?");
             string Name = Console.ReadLine().ToString();
 
             Console.WriteLine("Who is the manufacturer of your candy?");
             string Manufacturer = Console.ReadLine().ToString();
 
-            Console.WriteLine("What is the flavor of your candy?");
-            string FlavorCategory = Console.ReadLine().ToString();
+            Console.WriteLine("Choose your candy flavor: ");
+            foreach(string flavor in FlavorList)
+            {
+                Console.WriteLine(flavor);
+            }
+
+            string Flavor = Console.ReadLine().ToLower();
 
             Console.WriteLine("When did you buy this candy? [EX] 2010, 12, 23");
             Console.WriteLine("Enter Year:");
@@ -108,18 +168,16 @@ namespace candy_market
 
             var DateReceived = new DateTime(Year, Month, Day);
 
-            var newCandy = new Candy(Name, Manufacturer, FlavorCategory, DateReceived);
-
+            var newCandy = new Candy(Name, Manufacturer, Flavor, DateReceived);
             db.SaveNewCandy(newCandy);
             Console.WriteLine($"Now you own the candy {newCandy.Name}");
             Console.ReadKey();
-
         }
 
-        public int Rando(List<Candy> randomList)
+        static int Rando(List<Candy> filteredList)
         {
             Random random = new Random();
-            int rdmNum = random.Next(0, randomList.Count - 1);
+            int rdmNum = random.Next(0, filteredList.Count - 1);
             return rdmNum;
         } 
 

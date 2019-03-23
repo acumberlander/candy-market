@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace candy_market
 {
@@ -6,14 +7,14 @@ namespace candy_market
     {
         public string Name { get; }
         public string Manufacturer { get; }
-        public string FlavorCategory { get; }
+        public string Flavor { get; set; }
         public DateTime DateRecieved { get; }
 
-        public Candy(string name, string manufacturer, string flavorCategory, DateTime date)
+        public Candy(string name, string manufacturer,  string flavor, DateTime date)
         {
             Name = name;
             Manufacturer = manufacturer;
-            FlavorCategory = flavorCategory;
+            Flavor = flavor;
             DateRecieved = date;
         }
     }
