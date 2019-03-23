@@ -11,8 +11,21 @@ namespace candy_market
             //var candyOwners = new List<CandyStorage>();
 
             var dylan = new CandyStorage("Dylan");
+            dylan.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
+            dylan.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+            dylan.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+           
             var austin = new CandyStorage("Austin");
+            austin.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
+            austin.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+            austin.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+
             var jonathan = new CandyStorage("Jonathan");
+            jonathan.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
+            jonathan.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+            jonathan.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+
+            jonathan.ShowList();
 
             var users = new Users();
 
@@ -48,6 +61,7 @@ namespace candy_market
 			View mainMenu = new View()
 					.AddMenuOption("Did you just get some new candy? Add it here.")
 					.AddMenuOption("Do you want to eat some candy? Take it here.")
+                    .AddMenuOption("Would you like to trade some candy?")
 					.AddMenuText("Press Esc to exit.");
 			Console.Write(mainMenu.GetFullMenu());
 			var userOption = Console.ReadKey();
@@ -65,12 +79,12 @@ namespace candy_market
 			switch (selection)
 			{
 				case "1": AddNewCandy(db);
-                    break;
+                    return false;
                 case "2": EatCandy(db);
-					break;
-				default: return true;
+                    return false;
+                //case "3": TradeCandy(db);
+				default: return false;
 			}
-			return true;
 		}
 
 		internal static void AddNewCandy(CandyStorage db)
@@ -95,28 +109,24 @@ namespace candy_market
             var DateReceived = new DateTime(Year, Month, Day);
 
             var newCandy = new Candy(Name, Manufacturer, FlavorCategory, DateReceived);
-			
-                db.SaveNewCandy(newCandy);
-                Console.WriteLine($"Now you own the candy {newCandy.Name}");
-                Console.ReadKey();
-            var exit = false;
-            while (!exit)
-            {
-                var userInput = MainMenu();
-                exit = TakeActions(db, userInput);
-            }
+
+            db.SaveNewCandy(newCandy);
+            Console.WriteLine($"Now you own the candy {newCandy.Name}");
+            Console.ReadKey();
+
         }
 
+        public int Rando(List<Candy> randomList)
+        {
+            Random random = new Random();
+            int rdmNum = random.Next(0, randomList.Count - 1);
+            return rdmNum;
+        } 
 
 		private static void EatCandy(CandyStorage db)
+
 		{
-                var candyShop = db.CandyFlavor("");
-                Random random = new Random();
-                int rdmNum = random.Next(0, candyShop.Count -1);
-                var candyChoice = candyShop[rdmNum];
-                candyShop.RemoveAt(rdmNum);
-                Console.WriteLine(candyShop.Count);
-                Console.ReadKey();
-            }
+            
         }
     }
+}
