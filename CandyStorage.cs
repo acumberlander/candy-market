@@ -43,11 +43,7 @@ namespace candy_market
                 var candyMfc = _myCandy[i].Manufacturer;
                 var candyFlavor = _myCandy[i].Flavor;
 
-                Console.WriteLine($"Name: {candyName}, MFC: {candyMfc}, Flavor: {candyFlavor}");
             }
-
-            Console.ReadLine();
-
             return newCandy;
         }
 
