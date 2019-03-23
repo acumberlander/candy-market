@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+<<<<<<< HEAD
 using System.Linq;
+=======
+>>>>>>> master
 
 namespace candy_market
 {
@@ -18,6 +21,7 @@ namespace candy_market
 
 		static void Main(string[] args)
 		{
+<<<<<<< HEAD
             List<Candy> candies = SeeCandy();
 
 
@@ -34,6 +38,37 @@ namespace candy_market
             FlavorList.Add("sweet");
             FlavorList.Add("bitter");
             FlavorList.Add("savory");
+=======
+
+            //var candyOwners = new List<CandyStorage>();
+
+            var dylan = new CandyStorage("Dylan");
+            dylan.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
+            dylan.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+            dylan.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+           
+            var austin = new CandyStorage("Austin");
+            austin.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
+            austin.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+            austin.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+
+            var jonathan = new CandyStorage("Jonathan");
+            jonathan.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
+            jonathan.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+            jonathan.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+
+            jonathan.ShowList();
+
+            var users = new Users();
+
+            users.AddOwner(dylan);
+            users.AddOwner(austin);
+            users.AddOwner(jonathan);
+
+            Console.WriteLine("Enter User Name");
+            var db = SetupNewApp(Console.ReadLine());
+            users.AddOwner(db);
+>>>>>>> master
 
             var exit = false;
 			while (!exit)
@@ -43,15 +78,15 @@ namespace candy_market
 			}
 		} 
 
-		internal static CandyStorage SetupNewApp()
+		internal static CandyStorage SetupNewApp(string ownerName)
 		{
 			Console.Title = "Cross Confectioneries Incorporated";
 			Console.BackgroundColor = ConsoleColor.DarkMagenta;
 			Console.ForegroundColor = ConsoleColor.Cyan;
 
-			var db = new CandyStorage();
+			var db = new CandyStorage(ownerName);
 
-			return db;
+            return db;
 		}
 
 		internal static ConsoleKeyInfo MainMenu()
@@ -59,6 +94,7 @@ namespace candy_market
 			View mainMenu = new View()
 					.AddMenuOption("Did you just get some new candy? Add it here.")
 					.AddMenuOption("Do you want to eat some candy? Take it here.")
+                    .AddMenuOption("Would you like to trade some candy?")
 					.AddMenuText("Press Esc to exit.");
 			Console.Write(mainMenu.GetFullMenu());
 			var userOption = Console.ReadKey();
@@ -80,6 +116,7 @@ namespace candy_market
 
                 case "2": EatCandy(db);
                     return false;
+                //case "3": TradeCandy(db);
 				default: return false;
 			}
 		}
@@ -89,11 +126,12 @@ namespace candy_market
 
 
             Console.WriteLine("What is the name of your candy?");
-            string Name = Console.ReadLine().ToLower();
+            string Name = Console.ReadLine().ToString();
 
             Console.WriteLine("Who is the manufacturer of your candy?");
-            string Manufacturer = Console.ReadLine().ToLower();
+            string Manufacturer = Console.ReadLine().ToString();
 
+<<<<<<< HEAD
             Console.WriteLine("Choose your candy flavor: ");
             foreach(string flavor in FlavorList)
             {
@@ -101,26 +139,43 @@ namespace candy_market
             }
 
             string Flavor = Console.ReadLine().ToLower();
+=======
+            Console.WriteLine("What is the flavor of your candy?");
+            string FlavorCategory = Console.ReadLine().ToString();
+>>>>>>> master
 
             Console.WriteLine("When did you buy this candy? [EX] 2010, 12, 23");
-            Console.WriteLine("Enter Year");
+            Console.WriteLine("Enter Year:");
             int Year = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter Month");
-            var Month = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter Day");
+            Console.WriteLine("Enter Month:");
+            int Month = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Day:");
             int Day = Convert.ToInt32(Console.ReadLine());
 
             var DateReceived = new DateTime(Year, Month, Day);
 
+<<<<<<< HEAD
             var newCandy = new Candy(Name, Manufacturer, Flavor, DateReceived);
+=======
+            var newCandy = new Candy(Name, Manufacturer, FlavorCategory, DateReceived);
+
+>>>>>>> master
             db.SaveNewCandy(newCandy);
             Console.WriteLine($"Now you own the candy {newCandy.Name}");
             Console.ReadKey();
         }
 
+        public int Rando(List<Candy> randomList)
+        {
+            Random random = new Random();
+            int rdmNum = random.Next(0, randomList.Count - 1);
+            return rdmNum;
+        } 
+
 		private static void EatCandy(CandyStorage db)
+
 		{
-			throw new NotImplementedException();
-		}
-	}
+            
+        }
+    }
 }
