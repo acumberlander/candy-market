@@ -49,12 +49,11 @@ namespace candy_market
 			switch (selection)
 			{
 				case "1": AddNewCandy(db);
-                    break;
+                    return false;
                 case "2": EatCandy(db);
-					break;
-				default: return true;
+                    return false;
+				default: return false;
 			}
-			return true;
 		}
 
 		internal static void AddNewCandy(CandyStorage db)
@@ -79,9 +78,8 @@ namespace candy_market
             var DateReceived = new DateTime(Year, Month, Day);
 
             var newCandy = new Candy(Name, Manufacturer, FlavorCategory, DateReceived);
-			{
-                Console.WriteLine($"Now you own the candy {newCandy.Name}");
-            };
+            db.SaveNewCandy(newCandy);
+            Console.WriteLine($"Now you own the candy {newCandy.Name}");
             Console.ReadKey();
 
         }
