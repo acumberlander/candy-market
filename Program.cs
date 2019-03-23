@@ -37,7 +37,11 @@ namespace candy_market
             var db = SetupNewApp(Console.ReadLine());
             users.AddOwner(db);
 
-			var exit = false;
+            db.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
+            db.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+            db.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+
+            var exit = false;
 			while (!exit)
 			{
 				var userInput = MainMenu();
@@ -82,12 +86,19 @@ namespace candy_market
                     return false;
                 case "2": EatCandy(db);
                     return false;
-                //case "3": TradeCandy(db);
+                case "3": TradeCandy(db);
+                    return false;
 				default: return false;
 			}
 		}
 
-		internal static void AddNewCandy(CandyStorage db)
+        private static void TradeCandy(CandyStorage db)
+        {
+
+            throw new NotImplementedException();
+        }
+
+        internal static void AddNewCandy(CandyStorage db)
 		{
             Console.WriteLine("What is the name of your candy?");
             string Name = Console.ReadLine().ToString();
@@ -124,9 +135,17 @@ namespace candy_market
         } 
 
 		private static void EatCandy(CandyStorage db)
-
 		{
-            
+            int increment = 0;
+            var candiesInList = db.ShowList();
+            Console.WriteLine("Enter number corresponding to the desired candy to eat:\n");
+            foreach (var candy in candiesInList)
+            {
+                increment++;
+                Console.Write($"{increment})\t {candy.Name}\n");
+            }
+            var selectedCandy = Convert.ToInt32(Console.ReadLine()) - 1;
+            db.EatChosenCandy(candiesInList[selectedCandy].Name);
         }
     }
 }

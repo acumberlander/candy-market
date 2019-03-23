@@ -6,8 +6,8 @@ namespace candy_market
 {
     internal class CandyStorage
     {
-        static List<Candy> _myCandy = new List<Candy>();
-        static List<Candy> _eatenCandy = new List<Candy>();
+        List<Candy> _myCandy = new List<Candy>();
+        List<Candy> _eatenCandy = new List<Candy>();
 
         public string Owner { get; set; }
 
@@ -48,6 +48,8 @@ namespace candy_market
             var oldestCandyToEat = GetOldestCandy(candiesSelected);
             RemoveCandyFromInventory(oldestCandyToEat);
             AddCandyToEatenList(oldestCandyToEat);
+            Console.WriteLine($"You have eaten a {oldestCandyToEat.Name}. Press any key to continue");
+            Console.ReadKey();
         }
 
         internal Candy GetOldestCandy(List<Candy> selectedCandies)
