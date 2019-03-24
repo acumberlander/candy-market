@@ -228,7 +228,7 @@ namespace candy_market
             {
                 Console.WriteLine("The trade has been cancelled.");
             }
-            Console.WriteLine("\nPress any button to return to the menu");
+            Console.WriteLine("\nPress any key to return to the menu");
             Console.ReadKey();
         }
     }
