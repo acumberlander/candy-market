@@ -18,6 +18,7 @@ namespace candy_market
 
 		static void Main(string[] args)
 		{
+
             var FlavorList = new List<string>();
 
             FlavorList.Add("sour");
@@ -29,7 +30,7 @@ namespace candy_market
             dylan.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
             dylan.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
             dylan.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
-           
+
             var austin = new CandyStorage("Austin");
             austin.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
             austin.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
@@ -41,6 +42,9 @@ namespace candy_market
             jonathan.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
 
             jonathan.ShowList();
+            austin.ShowList();
+
+            austin.tradeCandy("Snickers", "Butterfinger", jonathan);
 
             var users = new Users();
 

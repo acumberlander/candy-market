@@ -6,8 +6,8 @@ namespace candy_market
 {
     public class CandyStorage
     {
-        static List<Candy> _myCandy = new List<Candy>();
-        static List<Candy> _eatenCandy = new List<Candy>();
+        List<Candy> _myCandy = new List<Candy>();
+        List<Candy> _eatenCandy = new List<Candy>();
 
         public string Owner { get; set; }
 
@@ -68,6 +68,20 @@ namespace candy_market
         internal List<Candy> ShowList()
         {
             return _myCandy;
+        }
+
+        internal void tradeCandy(string tradeCandy, string newCandy, CandyStorage ownerName)
+        {
+            var ownerCandy = _myCandy.Find(candy => candy.Name == tradeCandy);
+            var traderCandy = ownerName._myCandy.Find(candy => candy.Name == newCandy);
+
+            //Adds new candies to each owners' lists
+            ownerName.SaveNewCandy(ownerCandy);
+            _myCandy.Add(traderCandy);
+
+            //Removes traded candies from owners' lists
+            ownerName.RemoveCandyFromInventory(traderCandy);
+            _myCandy.Remove(ownerCandy);
         }
 
         internal List<Candy> CandyFlavor(string flavor)
