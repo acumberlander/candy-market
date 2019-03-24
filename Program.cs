@@ -6,19 +6,8 @@ namespace candy_market
 {
     class Program
     {
-        public static List<Candy> SeeCandy()
-        {
-            List<Candy> candyList = new List<Candy>();
-            candyList.Add(new Candy("Jelly Bean", "Jelly Inc.", "bitter", new DateTime(2018 / 12 / 12)));
-            candyList.Add(new Candy("Snickers", "Mars Inc.", "sweet", new DateTime(2019 / 01 / 12)));
-            candyList.Add(new Candy("Reese's", "Mars Inc.", "sweet", new DateTime(2017 / 02 / 12)));
-            candyList.Add(new Candy("Lemon Heads", "Some Company Inc.", "sour", new DateTime(2019 / 01 / 01)));
-            return candyList;
-        }
-
 		static void Main(string[] args)
 		{
-
             var FlavorList = new List<string>();
 
             FlavorList.Add("sour");
@@ -27,24 +16,19 @@ namespace candy_market
             FlavorList.Add("savory");
 
             var dylan = new CandyStorage("Dylan");
-            dylan.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
-            dylan.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
-            dylan.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+            dylan.SaveNewCandy(new Candy("Snickers", "Mars", "sweet", new DateTime(2019, 12, 23)));
+            dylan.SaveNewCandy(new Candy("Butterfinger", "Mars", "bitter", new DateTime(2019, 12, 23)));
+            dylan.SaveNewCandy(new Candy("Twix", "Mars", "sweet", new DateTime(2019, 12, 23)));
 
             var austin = new CandyStorage("Austin");
-            austin.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
-            austin.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
-            austin.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+            austin.SaveNewCandy(new Candy("Snickers", "Mars", "sweet", new DateTime(2019, 12, 23)));
+            austin.SaveNewCandy(new Candy("Butterfinger", "Mars", "bitter", new DateTime(2019, 12, 23)));
+            austin.SaveNewCandy(new Candy("Twix", "Mars", "sweet", new DateTime(2019, 12, 23)));
 
             var jonathan = new CandyStorage("Jonathan");
-            jonathan.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
-            jonathan.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
-            jonathan.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
-
-            jonathan.ShowList();
-            austin.ShowList();
-
-            austin.tradeCandy("Snickers", "Butterfinger", jonathan);
+            jonathan.SaveNewCandy(new Candy("Snickers", "Mars", "sweet", new DateTime(2019, 12, 23)));
+            jonathan.SaveNewCandy(new Candy("Butterfinger", "Mars", "bitter", new DateTime(2019, 12, 23)));
+            jonathan.SaveNewCandy(new Candy("Twix", "Mars", "sweet", new DateTime(2019, 12, 23)));
 
             var users = new Users();
 
@@ -55,14 +39,11 @@ namespace candy_market
             Console.WriteLine("Enter User Name");
             var db = SetupNewApp(Console.ReadLine());
             users.AddOwner(db);
-            db.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
-            db.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
-            db.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
 
+            db.SaveNewCandy(new Candy("Snickers", "Mars", "sweet", new DateTime(2019, 12, 23)));
+            db.SaveNewCandy(new Candy("Butterfinger", "Mars", "bitter", new DateTime(2019, 12, 23)));
+            db.SaveNewCandy(new Candy("Twix", "Mars", "sweet", new DateTime(2019, 12, 23)));
 
-            db.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
-            db.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
-            db.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
             var exit = false;
 			while (!exit)
 			{
@@ -99,14 +80,16 @@ namespace candy_market
 
 		internal static ConsoleKeyInfo MainMenu()
 		{
-			View mainMenu = new View()
-					.AddMenuOption("Did you just get some new candy? Add it here.")
-					.AddMenuOption("Do you want to eat some candy? Take it here.")
-					.AddMenuOption("Choose candy by the flavor. Choose it here.")
+            View mainMenu = new View()
+                    .AddMenuOption("Did you just get some new candy? Add it here.")
+                    .AddMenuOption("Do you want to eat some candy? Take it here.")
+                    .AddMenuOption("Choose candy by the flavor. Choose it here.")
                     .AddMenuOption("Would you like to trade some candy?")
+                    .AddMenuOption("Check your Inventory")
 					.AddMenuText("Press Esc to exit.");
 			Console.Write(mainMenu.GetFullMenu());
 			var userOption = Console.ReadKey();
+            Console.Write("\n");
 			return userOption;
 		}
 
@@ -131,6 +114,8 @@ namespace candy_market
 
                 case "4": TradeCandy(users);
                     return false;
+                case "5": ListCandy(db);
+                    return false;
                 default: return false;
 			}
 		}
@@ -140,13 +125,16 @@ namespace candy_market
             flavorLister(FlavorList);
             var choosenFlavor = Console.ReadLine();
             var filteredCandy = filterCandy(choosenFlavor, db);
-            if (filteredCandy.Count < 0)
+            if (filteredCandy.Count <= 0)
             {
-                throw new Exception("You don't have any candy of that type! Check yo list!");
+                Console.WriteLine("You don't have any candy of that type! Check yo list!\n");
             }
-            var randNum = Rando(filteredCandy);
-
-            Console.WriteLine(filteredCandy[randNum].Name);
+            else
+            {
+                var randNum = Rando(filteredCandy);
+                Console.WriteLine($"You have eaten a {filteredCandy[randNum].Name}\n");
+            }
+            Console.WriteLine("Press any key to return to the main menu");
             Console.ReadKey();
         }
 
@@ -240,6 +228,16 @@ namespace candy_market
                 Console.WriteLine("The trade has been cancelled.");
             }
             Console.WriteLine("\nPress any key to return to the menu");
+            Console.ReadKey();
+        }
+
+        private static void ListCandy(CandyStorage db)
+        {
+            foreach (var candy in db.ShowList())
+            {
+                Console.Write($"\t{candy.Name}\n");
+            }
+            Console.WriteLine("\nPress any key to return to the main menu");
             Console.ReadKey();
         }
     }
