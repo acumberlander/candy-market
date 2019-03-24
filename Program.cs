@@ -18,6 +18,7 @@ namespace candy_market
 
 		static void Main(string[] args)
 		{
+
             var FlavorList = new List<string>();
 
             FlavorList.Add("sour");
@@ -29,7 +30,7 @@ namespace candy_market
             dylan.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
             dylan.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
             dylan.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
-           
+
             var austin = new CandyStorage("Austin");
             austin.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
             austin.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
@@ -41,6 +42,9 @@ namespace candy_market
             jonathan.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
 
             jonathan.ShowList();
+            austin.ShowList();
+
+            austin.tradeCandy("Snickers", "Butterfinger", jonathan);
 
             var users = new Users();
 
@@ -51,12 +55,16 @@ namespace candy_market
             Console.WriteLine("Enter User Name");
             var db = SetupNewApp(Console.ReadLine());
             users.AddOwner(db);
+            db.SaveNewCandy(new Candy("Snickers", "Mars", "Chocolate", new DateTime(2019, 12, 23)));
+            db.SaveNewCandy(new Candy("Butterfinger", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+            db.SaveNewCandy(new Candy("Twix", "Mars", "Caramel", new DateTime(2019, 12, 23)));
+
 
             var exit = false;
 			while (!exit)
 			{
 				var userInput = MainMenu();
-				exit = TakeActions(db, userInput, FlavorList);
+				exit = TakeActions(db, userInput, FlavorList, users);
 			}
         }
 
@@ -99,7 +107,7 @@ namespace candy_market
 			return userOption;
 		}
 
-		private static bool TakeActions(CandyStorage db, ConsoleKeyInfo userInput, List<string> FlavorList)
+		private static bool TakeActions(CandyStorage db, ConsoleKeyInfo userInput, List<string> FlavorList, Users users)
 		{
 			Console.Write(Environment.NewLine);
 
@@ -118,9 +126,8 @@ namespace candy_market
                 case "3": EatRandomCandy(db, FlavorList);
                     return false;
 
-                //case "3": EatRandomCandy(db, FlavorList);
-                //    return false;
-
+                case "4": TradeCandy(users);
+                    return false;
                 default: return false;
 			}
 		}
@@ -185,6 +192,44 @@ namespace candy_market
 
 		{
             
+        }
+
+        private static void TradeCandy(Users users)
+        {
+            var loggedInUser = users.candyOwners[3];
+            Console.WriteLine("Select a User to trade with: \n");
+            users.DisplayOtherUsers(users);
+            var selectedUserIndex = Convert.ToInt32(Console.ReadLine()) - 1;
+            var selectedUser = users.candyOwners[selectedUserIndex];
+
+            Console.Write($"\nChoose a candy from {selectedUser.Owner}'s inventory:\n");
+            selectedUser.DisplayCandies();
+
+            var selectedIndexCandyToTrade = Convert.ToInt32(Console.ReadLine()) - 1;
+            var selectedUsersCandy = selectedUser.ShowList()[selectedIndexCandyToTrade];
+            Console.WriteLine($"\n{selectedUser.Owner} is trading {selectedUsersCandy.Name}");
+
+            Console.WriteLine($"\nChoose a candy from your inventory to give");
+            loggedInUser.DisplayCandies();
+
+            var loggedUserIndexCandyToTrade = Convert.ToInt32(Console.ReadLine()) - 1;
+            var loggedUsersCandy = loggedInUser.ShowList()[loggedUserIndexCandyToTrade];
+            Console.WriteLine($"\n{loggedInUser.Owner} is trading {loggedUsersCandy.Name}");
+
+            Console.WriteLine($"\nDo you want to trade your {loggedUsersCandy.Name} for {selectedUser.Owner}'s {selectedUsersCandy.Name}? (y/n)\n");
+            var decisionToTrade = Console.ReadLine();
+
+            if (decisionToTrade == "y")
+            {
+                loggedInUser.tradeCandy(selectedUsersCandy.Name, loggedUsersCandy.Name, selectedUser);
+                Console.WriteLine("The trade is complete");
+            }
+            else
+            {
+                Console.WriteLine("The trade has been cancelled.");
+            }
+            Console.WriteLine("\nPress any key to return to the menu");
+            Console.ReadKey();
         }
     }
 }

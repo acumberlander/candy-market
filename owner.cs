@@ -4,13 +4,13 @@ using System.Text;
 
 namespace candy_market
 {
-    class owner
+    class Owner
     {
         //Properties
         public string Name { get; set; }
         //Fields
         //Constructor
-        public owner(string name)
+        public Owner(string name)
         {
             Name = name;
         }
