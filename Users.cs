@@ -13,5 +13,13 @@ namespace candy_market
         {
             candyOwners.Add(owner);
         }
+
+        internal void DisplayOtherUsers(Users users)
+        {
+            for (int i = 0; i < candyOwners.Count - 1; i++)
+            {
+                Console.WriteLine($"{i + 1})\t {candyOwners[i].Owner}");
+            }
+        }
     }
 }

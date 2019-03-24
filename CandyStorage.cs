@@ -72,10 +72,32 @@ namespace candy_market
             return _myCandy;
         }
 
+        internal void tradeCandy(string tradeCandy, string newCandy, CandyStorage ownerName)
+        {
+            var ownerCandy = _myCandy.Find(candy => candy.Name == tradeCandy);
+            var traderCandy = ownerName._myCandy.Find(candy => candy.Name == newCandy);
+
+            //Adds new candies to each owners' lists
+            ownerName.SaveNewCandy(ownerCandy);
+            _myCandy.Add(traderCandy);
+
+            //Removes traded candies from owners' lists
+            ownerName.RemoveCandyFromInventory(traderCandy);
+            _myCandy.Remove(ownerCandy);
+        }
+
         internal List<Candy> CandyFlavor(string flavor)
         {
             var flavorCandy = _myCandy.FindAll(candy => (candy.Flavor == flavor));
             return flavorCandy;
+        }
+
+        internal void DisplayCandies()
+        {
+            for (int i = 0; i < _myCandy.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}) {_myCandy[i].Name}");
+            }
         }
     }
 }
