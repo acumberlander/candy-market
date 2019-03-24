@@ -221,13 +221,7 @@ namespace candy_market
 
             if (decisionToTrade == "y")
             {
-                // saved candy to user lists
-                selectedUser.SaveNewCandy(loggedUsersCandy);
-                loggedInUser.SaveNewCandy(selectedUsersCandy);
-
-                // removes traded candy from user list
-                selectedUser.RemoveCandyFromInventory(selectedUsersCandy);
-                loggedInUser.RemoveCandyFromInventory(loggedUsersCandy);
+                loggedInUser.tradeCandy(selectedUsersCandy.Name, loggedUsersCandy.Name, selectedUser);
                 Console.WriteLine("The trade is complete");
             }
             else
