@@ -129,11 +129,8 @@ namespace candy_market
                 case "3": EatRandomCandy(db, FlavorList);
                     return false;
 
-<<<<<<< HEAD
-=======
                 case "4": TradeCandy(users);
                     return false;
->>>>>>> 10f4f228496f38553283e027c4ec9ae9343dc310
                 default: return false;
 			}
 		}
