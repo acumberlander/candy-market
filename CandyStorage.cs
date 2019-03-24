@@ -89,5 +89,13 @@ namespace candy_market
             var flavorCandy = _myCandy.FindAll(candy => (candy.Flavor == flavor));
             return flavorCandy;
         }
+
+        internal void DisplayCandies()
+        {
+            for (int i = 0; i < _myCandy.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}) {_myCandy[i].Name}");
+            }
+        }
     }
 }
