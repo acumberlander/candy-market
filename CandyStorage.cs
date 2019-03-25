@@ -43,6 +43,8 @@ namespace candy_market
             var oldestCandyToEat = GetOldestCandy(candiesSelected);
             RemoveCandyFromInventory(oldestCandyToEat);
             AddCandyToEatenList(oldestCandyToEat);
+            Console.WriteLine($"You have eaten a {oldestCandyToEat.Name}. Press any key to continue");
+            Console.ReadKey();
         }
 
         internal Candy GetOldestCandy(List<Candy> selectedCandies)
