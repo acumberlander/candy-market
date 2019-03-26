@@ -114,6 +114,7 @@ namespace candy_market
 
                 case "4": TradeCandy(users);
                     return false;
+
                 case "5": ListCandy(db);
                     return false;
                 default: return false;
@@ -220,7 +221,7 @@ namespace candy_market
 
             if (decisionToTrade == "y")
             {
-                loggedInUser.tradeCandy(selectedUsersCandy.Name, loggedUsersCandy.Name, selectedUser);
+                loggedInUser.tradeCandy(loggedUsersCandy.Name, selectedUsersCandy.Name, selectedUser);
                 Console.WriteLine("The trade is complete");
             }
             else
