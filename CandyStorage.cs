@@ -72,9 +72,9 @@ namespace candy_market
             return _myCandy;
         }
 
-        internal void tradeCandy(string tradeCandy, string newCandy, CandyStorage ownerName)
+        internal void tradeCandy(string tradedCandy, string newCandy, CandyStorage ownerName)
         {
-            var ownerCandy = _myCandy.Find(candy => candy.Name == tradeCandy);
+            var ownerCandy = _myCandy.Find(candy => candy.Name == tradedCandy);
             var traderCandy = ownerName._myCandy.Find(candy => candy.Name == newCandy);
 
             //Adds new candies to each owners' lists
