@@ -15,7 +15,10 @@ We're a group of young entrepreneurs looking for a rockstar-ninja developer to h
 - As a candy owner, I would like to trade with other candy owners registered with our service. Right now we don't have any **_actual_** registered users, but we'd like the feature built with simulated users in anticipation of the hordes of users we'll have once our platform launches.
 
 
-
+###TEAM
+- Dylan Murray
+- Jonathan Mohan
+- Austin Cumberlander
 
 
 <sub><sub><sub>*valuation is speculative at best</sub>
